@@ -13,6 +13,7 @@
   <script src="../js/babel.min.js"></script>
   <script type="text/babel">
     function Test(){
+      console.log(this)  //undefined 此处在babel是以严格模式执行的
       return <h2>234567890wertyuio</h2>
     }
     ReactDOM.render(<Test/>,document.getElementById('test'))

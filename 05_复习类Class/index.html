@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+        class Person {
+            constructor(name, age) {
+                //构造器里的this指向类的实例对象
+                this.name=name
+                this.age=age
+            }
+            //普通方法
+            speak(){
+                //speak在类的原型对象上，供实例使用
+                console.log(`我是${this.name},今年${this.age}岁`)  //通过Person实例调用speak时，speak中的this就是Person实例（谁调用指向谁）
+            }
+        }
+        class Student extends Person{
+            constructor(name, age,grade) {
+                super(name,age);
+                this.grade=grade
+            }
+            speak(){
+                //speak在类的原型对象上，供实例使用
+                console.log(`我是${this.name},今年${this.age}岁，在读${this.grade}年级`)  //通过Student实例调用speak时，speak中的this就是Student实例（谁调用指向谁）
+            }
+            demo(){
+
+            }
+        }
+        //创建Person的实例对象
+        const p1=new Person('Tom',20)
+        const p2=new Person('Jimmy',19)
+        const s1=new Student('Peter',12,'初二')
+        p1.speak()
+        p2.speak()
+        s1.speak()
+        // 类中的构造器不是必须的，对实例进行初始化操作如添加属性时才写。
+        // 如果A类继承B类，且A类有构造器，A类构造器中super必须调用。
+        // 类中定义的方法放在类的原型对象上
+    </script>
+</body>
+</html>

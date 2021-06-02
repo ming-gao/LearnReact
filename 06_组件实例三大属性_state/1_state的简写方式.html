@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>state</title>
+</head>
+<body>
+<div id="test"></div>
+<script src="../js/react.development.js"></script>
+<script src="../js/react-dom.development.js"></script>
+<script src="../js/babel.min.js"></script>
+<script type="text/babel">
+    class Weather extends React.Component{
+        //初始化状态
+        state={isHot:true,wind:'微风'}
+        render(){  //调用1+n次  1:初始化的一次  n：数据改变的次数
+            return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot?'炎热':'凉爽'}，{this.state.wind}</h1>
+        }
+        //自定义方法，赋值语句+箭头函数
+        changeWeather = () => {  //n次，调用几次改几次
+            this.setState({isHot:!this.state.isHot})
+            console.log(this)
+        }
+    }
+    ReactDOM.render(<Weather/>,document.getElementById('test'))
+</script>
+</body>
+</html>

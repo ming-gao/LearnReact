@@ -16,28 +16,24 @@
         state={isHot:true}
         //React.createRef调用后可以返回一个容器，该容器可以存储被ref所标识的节点，容器是专人专用的,
         myRef=React.createRef()
+        myRef2=React.createRef()
         showData=()=>{
-            // console.log(this.refs.input1)
-            console.log(this.myRef.current.value)
-            // console.log(this.input1.value)
+            alert(this.myRef.current.value)
+        }
+        showData2=()=>{
+            alert(this.myRef2.current.value)
         }
         //通过onXxx属性指定事件处理函数(注意大小写)，区别于原生事件
             //a.React使用的是自定义(合成)事件，而不是使用的原生DOM事件，为了更好的兼容性,
             //b.React中的事件是通过事件委托方式处理的(委托给组件最外层的元素)，为了的高效
-        //通过event .target得到发生事件的DOM元素对象
-        changeWeather=()=>{
-            const {isHot}=this.state
-            this.setState({isHot:!isHot})
-        }
+        //通过event .target得到发生事件的DOM元素对象，不要过度使用ref
+
         render(){
-            // console.log(this)
-            const {isHot}=this.state
             return(
                 <div>
-                    <h1>今天天气很{isHot?'炎热':'凉爽'}</h1>
-                    <input ref={this.myRef} type="text" placeholder="点击提示数据"/>
-                    <button onClick={this.showData}>点我提示左侧的数据</button>
-                    <button onClick={this.changeWeather}>切换天气状态</button>
+                    <input ref={this.myRef} onBlur= {this.showData} type="text" placeholder="点击提示数据"/>
+                    <button onClick= {this.showData2}>点我提示左侧的数据</button>
+                    {/*事件和事件源在同一个标签上，ref可以省略*/}
                 </div>
             )
         }

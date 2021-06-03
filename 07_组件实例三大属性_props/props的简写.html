@@ -18,6 +18,11 @@
 <script src="../js/babel.min.js"></script>
 <script type="text/babel">
     class Person extends React.Component{
+        //构造器是否接收props，是否传递给super,取决于:是否希望在构造器中通过this访间props
+        constructor(props) {
+            super(props);
+            console.log(this.props)
+        }
         render(){
             //props是只读的
             return(
@@ -28,20 +33,20 @@
                 </ul>
             )
         }
+        //对标签属性进行必要性和类型得限制
+        static propTypes={
+            name:PropTypes.string.isRequired,
+            age:PropTypes.number,
+            gender:PropTypes.string,
+            speak:PropTypes.func
+        }
+        //设置标签属性得默认值
+        static defaultProps={
+            age:18,
+            gender:'未选择'
+        }
+    }
 
-    }
-    //对标签属性进行必要性和类型得限制
-    Person.propTypes={
-        name:PropTypes.string.isRequired,
-        age:PropTypes.number,
-        gender:PropTypes.string,
-        speak:PropTypes.func
-    }
-    //设置标签属性得默认值
-    Person.defaultProps={
-        age:18,
-        gender:'未选择'
-    }
     const p = {name:'top' , age:23 ,gender:'男'}
     ReactDOM.render(<Person {...p}/>,document.getElementById('test'))
     ReactDOM.render(<Person name="tom" age={20} speak={speak} gender="男"/>,document.getElementById('test1'))

@@ -17,18 +17,27 @@
 
 <script src="../js/babel.min.js"></script>
 <script type="text/babel">
-    class Person extends React.Component{
-        render(){
-            //props是只读的
-            return(
-                <ul>
-                    <li>名字：{this.props.name}</li>
-                    <li>年龄：{this.props.age}</li>
-                    <li>性别：{this.props.gender}</li>
-                </ul>
-            )
-        }
-
+    // class Person extends React.Component{
+    //     render(){
+    //         //props是只读的
+    //         return(
+    //             <ul>
+    //                 <li>名字：{this.props.name}</li>
+    //                 <li>年龄：{this.props.age}</li>
+    //                 <li>性别：{this.props.gender}</li>
+    //             </ul>
+    //         )
+    //     }
+    // }
+    function Person(props){
+        const {name,age,gender}=props
+        return(
+            <ul>
+                <li>名字：{name}</li>
+                <li>年龄：{age}</li>
+                <li>性别：{gender}</li>
+            </ul>
+        )
     }
     //对标签属性进行必要性和类型得限制
     Person.propTypes={
@@ -44,10 +53,7 @@
     }
     const p = {name:'top' , age:23 ,gender:'男'}
     ReactDOM.render(<Person {...p}/>,document.getElementById('test'))
-    ReactDOM.render(<Person name="tom" age={20} speak={speak} gender="男"/>,document.getElementById('test1'))
-    function speak(){
-        console.log('speak')
-    }
+
 </script>
 </body>
 </html>

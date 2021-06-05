@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .row{
+            height: 30px;
+        }
+        .container{
+            overflow: auto;
+            height: 210px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+<div id="test"></div>
+<script type="text/javascript" src="../js/17/react.development.js"></script>
+<script type="text/javascript" src="../js/17/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/17/babel.min.js"></script>
+<script type="text/babel">
+    class News extends React.Component {
+        // 1.初始化阶段:由ReactDOM. render( )触发---初次渲染
+        //     1. constructor( )
+        //     2. getDerivedStateFromProps
+        //     3. render( )
+        //     4. componentDidMount() =====> 常用
+        //         -般在这个钩子中做一 些初始化的事，例如:开启定时器、发送网络请求、订阅消息
+        // 2.更新阶段:由组件内部this . setSate()或父组件重新render触发
+        //     1. getDerivedStateF romProps
+        //     2. shouldComponentUpdate()
+        //     3. render( )
+        //     4. getSnapshotBeforeUpdate
+        //     5. componentDidUpdate()
+        // 3.卸载组件:由ReactDOM. unmountComponentAtNode( )触发
+        //     1. componentWillUnmount() =====> 常用
+        //         -般在这个钩子中做一 些收尾的事，例如:关闭定时器、取消订阅消息
+        state = {newsArr:[]}
+        componentDidMount() {
+            setInterval(()=>{
+                const {newsArr} = this.state
+                const news = '新闻'+(newsArr.length+1)
+                this.setState({newsArr:[news,...newsArr]})
+            },1000)
+        }
+        getSnapshotBeforeUpdate(){
+            return this.refs.list.scrollHeight
+        }
+        componentDidUpdate(height) {
+            this.refs.list.scrollTop += this.refs.list.scrollHeight-height
+        }
+        render() {
+            return(
+                <div className="container" ref="list">
+                    {
+                        this.state.newsArr.map((n,index)=>{
+                            return <div className="row" key={index}>{n}</div>
+                        })
+                    }
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<News/>,document.getElementById('test'))
+</script>
+</body>
+</html>
